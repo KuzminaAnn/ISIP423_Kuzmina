@@ -104,6 +104,45 @@ public class Course
     }
 }
 
+// Класс системы университета
+//public class UniversitySystem
+//{
+//    private List<Student> students = new List<Student>();
+//    private List<Teacher> teachers = new List<Teacher>();
+//    private List<Course> courses = new List<Course>();
+
+//    public void AddStudent(Student student) => students.Add(student);
+//    public void AddTeacher(Teacher teacher) => teachers.Add(teacher);
+//    public void AddCourse(Course course) => courses.Add(course);
+
+//    public void DisplayAllStudents()
+//    {
+//        foreach (var student in students)
+//        {
+//            student.DisplayInfo();
+//            Console.WriteLine(new string('-', 30));
+//        }
+//    }
+
+//    public void DisplayAllTeachers()
+//    {
+//        foreach (var teacher in teachers)
+//        {
+//            teacher.DisplayInfo();
+//            Console.WriteLine(new string('-', 30));
+//        }
+//    }
+
+//    public void DisplayAllCourses()
+//    {
+//        foreach (var course in courses)
+//        {
+//            course.DisplayInfo();
+//            Console.WriteLine(new string('-', 30));
+//        }
+//    }
+//}
+
 
 // Обновленное консольное меню с возможностью добавления курса
 class Program
@@ -128,47 +167,50 @@ class Program
             switch (choice)
             {
                 case "1":
-                    Console.WriteLine("Система управления университетом");
                     Console.WriteLine("1. Добавить студента");
                     Console.WriteLine("2. Запиать студента на курс");
                     Console.WriteLine("3. Посмотреть информацию");
                     Console.WriteLine("4. Вывод всех студентов");
-                    break;
-                case "2":
-                    break;
-                case "3":
-                    Console.Write("Введите название курса: ");
-                    string courseName = Console.ReadLine();
+                    Console.Write("Выберите действие: ");
+                    string choice1 = Console.ReadLine();
 
-                    Console.Write("Введите описание курса: ");
-                    string courseDescription = Console.ReadLine();
-
-                    Console.Write("Введите количество часов: ");
-                    int courseHours = int.Parse(Console.ReadLine());
-
-                    Console.Write("Введите уровень курса: ");
-                    string courseLevel = Console.ReadLine();
-
-                    // Выбор преподавателя для курса
-                    Console.WriteLine("Выберите преподавателя:");
-                    for (int i = 0; i < system.teachers.Count; i++)
+                    switch (choice1)
                     {
-                        Console.WriteLine($"{i + 1}. {system.teachers[i].Name}");
+                        case "1":
+                            break;
                     }
-                    Console.Write("Введите номер преподавателя: ");
-                    int teacherIndex = int.Parse(Console.ReadLine()) - 1;
+                    break;
 
-                    Teacher selectedTeacher = system.teachers[teacherIndex];
+                case "2":
+                    Console.WriteLine("1. Добавить преподавателя");
+                    Console.WriteLine("2. Запиать преподавателя вести курс");
+                    Console.WriteLine("3. Посмотреть информацию");
+                    Console.WriteLine("4. Вывод всех преподавателей");
+                    Console.Write("Выберите действие: ");
+                    string choice2 = Console.ReadLine();
 
-                    Course newCourse = new Course(
-                        courseName,
-                        courseDescription,
-                        courseHours,
-                        courseLevel,
-                        selectedTeacher
-                    );
+                    switch (choice2)
+                    {
+                        case "1":
 
-                    system.AddCourse(newCourse);
+                            break;
+                    }
+                    break;
+
+                case "3":
+                    Console.WriteLine("1. Добавить курс");
+                    Console.WriteLine("2. Посмотреть инфо о курсе");
+                    Console.WriteLine("3. Посмотреть участников курса");
+                    Console.WriteLine("4. Вывод всех курсов");
+                    Console.Write("Выберите действие: ");
+                    string choice3 = Console.ReadLine();
+
+                    switch (choice3)
+                    {
+                        case "1":
+
+                            break;
+                    }
                     break;
             }
         }
