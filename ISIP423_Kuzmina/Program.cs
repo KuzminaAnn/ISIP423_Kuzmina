@@ -274,9 +274,9 @@ namespace UniversityManagementSystem
             _system.AddTeacher("Иван Петров", 45, "ivan.petrov@university.ru", "+79161234567");
             _system.AddTeacher("Мария Сидорова", 38, "maria.sidorova@university.ru", "+79167654321");
 
-            _system.AddStudent("Алексей Иванов", 20, "alex.ivanov@student.ru", "+79031112233", "S001");
-            _system.AddStudent("Елена Смирнова", 19, "elena.smirnova@student.ru", "+79032223344", "S002");
-            _system.AddStudent("Дмитрий Козлов", 21, "dmitry.kozlov@student.ru", "+79033334455", "S003");
+            _system.AddStudent("Алексей Иванов", 20, "alex.ivanov@student.ru", "+79031112233", "1");
+            _system.AddStudent("Елена Смирнова", 19, "elena.smirnova@student.ru", "+79032223344", "2");
+            _system.AddStudent("Дмитрий Козлов", 21, "dmitry.kozlov@student.ru", "+79033334455", "3");
 
             _system.AddCourse("MATH101", "Высшая математика", "Основы высшей математики");
             _system.AddCourse("CS101", "Основы программирования", "Введение в программирование на C#");
@@ -288,10 +288,10 @@ namespace UniversityManagementSystem
             _system.AssignTeacherToCourse("T001", "PHYS101");
 
             // Записываем студентов на курсы
-            _system.EnrollStudentInCourse("S001", "MATH101");
-            _system.EnrollStudentInCourse("S001", "CS101");
-            _system.EnrollStudentInCourse("S002", "CS101");
-            _system.EnrollStudentInCourse("S003", "PHYS101");
+            _system.EnrollStudentInCourse("1", "MATH101");
+            _system.EnrollStudentInCourse("1", "CS101");
+            _system.EnrollStudentInCourse("2", "CS101");
+            _system.EnrollStudentInCourse("3", "PHYS101");
         }
 
         public void Run()
@@ -313,22 +313,21 @@ namespace UniversityManagementSystem
                         ManageCourses();
                         break;
                     case "0":
-                        Console.WriteLine("Выход из системы...");
+                        Console.WriteLine("Выход из системы");
                         return;
                     default:
                         Console.WriteLine("Неверный выбор. Попробуйте снова.");
                         break;
                 }
 
-                Console.WriteLine("\nНажмите любую клавишу для продолжения...");
+                Console.WriteLine("\nНажмите любую клавишу для продолжения");
                 Console.ReadKey();
             }
         }
 
         private void ShowMainMenu()
         {
-            Console.Clear();
-            Console.WriteLine("СИСТЕМА УПРАВЛЕНИЯ УНИВЕРСИТЕТОМ");
+            Console.WriteLine("Выберете из списка");
             Console.WriteLine("1. Управление студентами");
             Console.WriteLine("2. Управление преподавателями");
             Console.WriteLine("3. Управление курсами");
@@ -340,8 +339,7 @@ namespace UniversityManagementSystem
         {
             while (true)
             {
-                Console.Clear();
-                Console.WriteLine("УПРАВЛЕНИЕ СТУДЕНТАМИ");
+                Console.WriteLine("Управление студентами");
                 Console.WriteLine("1. Добавить студента");
                 Console.WriteLine("2. Просмотреть всех студентов");
                 Console.WriteLine("3. Записать студента на курс");
@@ -372,7 +370,7 @@ namespace UniversityManagementSystem
                         break;
                 }
 
-                Console.WriteLine("\nНажмите любую клавишу для продолжения...");
+                Console.WriteLine("\nНажмите любую клавишу для продолжения");
                 Console.ReadKey();
             }
         }
@@ -403,7 +401,7 @@ namespace UniversityManagementSystem
         private void ShowAllStudents()
         {
             var students = _system.GetAllStudents();
-            Console.WriteLine("\n=== ВСЕ СТУДЕНТЫ ===");
+            Console.WriteLine("\nВсе студенты");
             foreach (var student in students)
             {
                 Console.WriteLine(student.GetInfo());
@@ -452,8 +450,7 @@ namespace UniversityManagementSystem
         {
             while (true)
             {
-                Console.Clear();
-                Console.WriteLine("УПРАВЛЕНИЕ ПРЕПОДАВАТЕЛЯМИ");
+                Console.WriteLine("Упавлние преподавателями");
                 Console.WriteLine("1. Добавить преподавателя");
                 Console.WriteLine("2. Просмотреть всех преподавателей");
                 Console.WriteLine("3. Назначить преподавателя на курс");
@@ -480,7 +477,7 @@ namespace UniversityManagementSystem
                         break;
                 }
 
-                Console.WriteLine("\nНажмите любую клавишу для продолжения...");
+                Console.WriteLine("\nНажмите любую клавишу для продолжения");
                 Console.ReadKey();
             }
         }
@@ -509,7 +506,7 @@ namespace UniversityManagementSystem
         private void ShowAllTeachers()
         {
             var teachers = _system.GetAllTeachers();
-            Console.WriteLine("\nВСЕ ПРЕПОДАВАТЕЛИ");
+            Console.WriteLine("\nВсе преподаватели");
             foreach (var teacher in teachers)
             {
                 Console.WriteLine(teacher.GetInfo());
@@ -537,8 +534,7 @@ namespace UniversityManagementSystem
         {
             while (true)
             {
-                Console.Clear();
-                Console.WriteLine("УПРАВЛЕНИЕ КУРСАМИ");
+                Console.WriteLine("Управлени крусами");
                 Console.WriteLine("1. Добавить курс");
                 Console.WriteLine("2. Просмотреть все курсы");
                 Console.WriteLine("3. Просмотреть информацию о курсе");
@@ -569,7 +565,7 @@ namespace UniversityManagementSystem
                         break;
                 }
 
-                Console.WriteLine("\nНажмите любую клавишу для продолжения...");
+                Console.WriteLine("\nНажмите любую клавишу для продолжения");
                 Console.ReadKey();
             }
         }
@@ -596,7 +592,7 @@ namespace UniversityManagementSystem
         private void ShowAllCourses()
         {
             var courses = _system.GetAllCourses();
-            Console.WriteLine("\nВСЕ КУРСЫ");
+            Console.WriteLine("\nВсе курсы");
             foreach (var course in courses)
             {
                 Console.WriteLine($"{course.Name} ({course.CourseCode})");
