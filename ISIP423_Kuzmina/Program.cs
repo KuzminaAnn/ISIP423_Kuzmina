@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using static System.Reflection.Metadata.BlobBuilder;
 
 // Абстрактный базовый класс
 public abstract class Person
@@ -149,7 +150,6 @@ class Program
 {
     static void Main()
     {
-        UniversitySystem system = new UniversitySystem();
         bool running = true;
 
         while (running)
@@ -167,19 +167,38 @@ class Program
             switch (choice)
             {
                 case "1":
-                    Console.WriteLine("1. Добавить студента");
-                    Console.WriteLine("2. Запиать студента на курс");
-                    Console.WriteLine("3. Посмотреть информацию");
-                    Console.WriteLine("4. Вывод всех студентов");
-                    Console.Write("Выберите действие: ");
-                    string choice1 = Console.ReadLine();
+                    { 
+                        Console.WriteLine("1. Добавить студента");
+                        Console.WriteLine("2. Запиать студента на курс");
+                        Console.WriteLine("3. Посмотреть информацию");
+                        Console.WriteLine("4. Вывод всех студентов");
+                        Console.Write("Выберите действие: ");
+                        string choice1 = Console.ReadLine();
+                        switch (choice1)
+                        {
+                            case "1":
+                                private static void AddBook()
+                            {
+                                Console.WriteLine("Добавление новой книги");
 
-                    switch (choice1)
-                    {
-                        case "1":
-                            break;
+                                var book = new Book
+                                {
+                                    Id = currentId++,
+                                    Title = GetInput("Название"),
+                                    Author = GetInput("Автор"),
+                                    Genre = GetGenre(),
+                                    Year = GetIntInput("Год издания"),
+                                    Price = GetDecimalInput("Цена")
+                                };
+
+                                books.Add(book);
+                                Console.WriteLine("Книга добавлена!");
+                            }
+                                break;
+                        }
                     }
-                    break;
+                  break;
+                    
 
                 case "2":
                     Console.WriteLine("1. Добавить преподавателя");
