@@ -3,7 +3,6 @@ using System.Collections.Generic;
 
 namespace TextRPG
 {
-    // Базовый класс для предметов
     public abstract class Item
     {
         public string Name { get; protected set; }
@@ -13,7 +12,6 @@ namespace TextRPG
         }
     }
 
-    // Оружие
     public class Weapon : Item
     {
         public int Attack { get; private set; }
@@ -27,7 +25,6 @@ namespace TextRPG
         }
     }
 
-    // Доспехи
     public class Armor : Item
     {
         public int Defense { get; private set; }
@@ -39,5 +36,13 @@ namespace TextRPG
         public override string ToString()
         {
             return $"{Name} (Защита: {Defense})";
+        }
+    }
+    public class HealthPotion : Item
+    {
+        public HealthPotion() : base("Лечебное зелье") { }
+        public override string ToString()
+        {
+            return $"{Name} (Восстанавливает всё здоровье)";
         }
     }
