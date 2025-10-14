@@ -310,3 +310,47 @@ namespace TextRPG
                 () => new PestovC()
             };
         }
+        public void Start()
+        {
+            Console.WriteLine("Добро пожаловать в игру!");
+            Console.WriteLine("Каждый ход вы можете встретить сундук или врага.");
+            Console.WriteLine("Каждые 10 ходов вас ждёт встреча с боссом!\n");
+
+            while (player.IsAlive)
+            {
+                turnCount++;
+                Console.WriteLine($"\n Ход {turnCount}");
+                Console.WriteLine(player.GetStatus());
+
+                if (player.IsFrozen)
+                {
+                    Console.WriteLine("Вы заморожены и пропускаете ход!");
+                    player.IsFrozen = false;
+                    continue;
+                }
+
+                if (random.NextDouble() < 0.5)
+                {
+                    EncounterEnemy();
+                }
+                else
+                {
+                    OpenChest();
+                }
+
+                if (turnCount % 10 == 0)
+                {
+                    Console.WriteLine("\nВНИМАНИЕ: Появляется босс");
+                    EncounterBoss();
+                }
+
+                if (!player.IsAlive)
+                {
+                    Console.WriteLine("\nИгра окончена! Вы погибли:(");
+                    break;
+                }
+
+                Console.WriteLine("\nНажмите любую клавишу для продолжения");
+                Console.ReadKey();
+            }
+        }
