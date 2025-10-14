@@ -248,3 +248,35 @@ namespace TextRPG
             CurrentHP -= damage;
             if (CurrentHP < 0) CurrentHP = 0;
         }
+        public int CalculateAttack()
+        {
+            return CurrentWeapon.Attack;
+        }
+        public int CalculateDefense()
+        {
+            return CurrentArmor.Defense;
+        }
+        public void Heal()
+        {
+            CurrentHP = MaxHP;
+            Console.WriteLine("Ваше здоровье полностью восстановлено!");
+        }
+        public void SetWeapon(Weapon weapon)
+        {
+            CurrentWeapon = weapon;
+        }
+        public void SetArmor(Armor armor)
+        {
+            CurrentArmor = armor;
+        }
+        public void SetDefending(bool defending)
+        {
+            IsDefending = defending;
+        }
+        public bool IsAlive => CurrentHP > 0;
+        public string GetStatus()
+        {
+            return $"Игрок - HP: {CurrentHP}/{MaxHP}, Оружие: {CurrentWeapon.Name} (Атака: {CurrentWeapon.Attack}), " +
+                   $"Доспехи: {CurrentArmor.Name} (Защита: {CurrentArmor.Defense})";
+        }
+    }
