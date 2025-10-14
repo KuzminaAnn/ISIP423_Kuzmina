@@ -427,3 +427,69 @@ namespace TextRPG
                 }
             }
         }
+        private void OpenChest()
+        {
+            Console.WriteLine("\nВы нашли сундук!");
+
+            double itemType = random.NextDouble();
+
+            if (itemType < 0.33)
+            {
+                HealthPotion potion = new HealthPotion();
+                Console.WriteLine($"В сундуке: {potion}");
+                Console.WriteLine("Выпить зелье? (y/n)");
+
+                if (Console.ReadLine().ToLower() == "y")
+                {
+                    player.Heal();
+                }
+            }
+            else if (itemType < 0.66)
+            {
+                string[] weaponNames = { "Меч", "Топор", "Посох", "Кинжал", "Булава" };
+                string name = weaponNames[random.Next(weaponNames.Length)];
+                int attack = random.Next(8, 20);
+
+                Weapon newWeapon = new Weapon(name, attack);
+                Console.WriteLine($"В сундуке: {newWeapon}");
+                Console.WriteLine($"Ваше текущее оружие: {player.CurrentWeapon}");
+                Console.WriteLine("Заменить оружие? (y/n)");
+
+                if (Console.ReadLine().ToLower() == "y")
+                {
+                    player.SetWeapon(newWeapon);
+                    Console.WriteLine("Оружие заменено!");
+                }
+            }
+            else
+            {
+                string[] armorNames = { "Кожаная броня", "Кольчуга", "Латы", "Мантия", "Роба" };
+                string name = armorNames[random.Next(armorNames.Length)];
+                int defense = random.Next(5, 15);
+
+                Armor newArmor = new Armor(name, defense);
+                Console.WriteLine($"В сундуке: {newArmor}");
+                Console.WriteLine($"Ваши текущие доспехи: {player.CurrentArmor}");
+                Console.WriteLine("Заменить доспехи? (y/n)");
+
+                if (Console.ReadLine().ToLower() == "y")
+                {
+                    player.SetArmor(newArmor);
+                    Console.WriteLine("Доспехи заменены!");
+                }
+            }
+        }
+    }
+
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Game game = new Game();
+            game.Start();
+
+            Console.WriteLine("\nСпасибо за игру!");
+            Console.ReadKey();
+        }
+    }
+}
