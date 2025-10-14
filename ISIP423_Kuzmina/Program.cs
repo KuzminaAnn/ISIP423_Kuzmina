@@ -84,7 +84,7 @@ namespace TextRPG
     }
     public class Goblin : Enemy
     {
-        private double critChance = 0.2; // 20% шанс крита
+        private double critChance = 0.2;
         public Goblin() : base("Гоблин", 30, 8, 3) { }
         public override int CalculateDamage(Player player)
         {
@@ -105,14 +105,14 @@ namespace TextRPG
 
         public override int CalculateDamage(Player player)
         {
-            return Attack; // Игнорирует защиту
+            return Attack; 
         }
         public override void ApplySpecialEffect(Player player) { }
     }
 
     public class Mage : Enemy
     {
-        private double freezeChance = 0.25; // 25% шанс заморозки
+        private double freezeChance = 0.25;
         public Mage() : base("Маг", 20, 12, 1) { }
         public override int CalculateDamage(Player player)
         {
@@ -124,6 +124,88 @@ namespace TextRPG
             {
                 player.IsFrozen = true;
                 Console.WriteLine("Маг заморозил вас! Вы пропустите следующий ход.");
+            }
+        }
+    }
+    public class VVG : Goblin
+    {
+        public VVG() : base()
+        {
+            Name = "ВВГ (Босс Гоблин)";
+            MaxHP = (int)(MaxHP * 2.0);
+            CurrentHP = MaxHP;
+            Attack = (int)(Attack * 1.5);
+            Defense = (int)(Defense * 1.2);
+        }
+        public override int CalculateDamage(Player player)
+        {
+            int damage = Attack;
+            if (random.NextDouble() < 0.3) // +10% к обычному гоблину
+            {
+                damage = (int)(damage * 1.5);
+                Console.WriteLine("ВВГ наносит критический урон!");
+            }
+            return damage;
+        }
+    }
+
+    public class Kovalsky : Skeleton
+    {
+        public Kovalsky() : base()
+        {
+            Name = "Ковальский (Босс Скелет)";
+            MaxHP = (int)(MaxHP * 2.5);
+            CurrentHP = MaxHP;
+            Attack = (int)(Attack * 1.3);
+            Defense = (int)(Defense * 1.4);
+        }
+        public override int CalculateDamage(Player player)
+        {
+            return Attack; // Полностью игнорирует защиту
+        }
+    }
+
+    public class ArchmageCPP : Mage
+    {
+        public ArchmageCPP() : base()
+        {
+            Name = "Архимаг C++ (Босс Маг)";
+            MaxHP = (int)(MaxHP * 1.8);
+            CurrentHP = MaxHP;
+            Attack = (int)(Attack * 1.6);
+            Defense = (int)(Defense * 1.1);
+        }
+        public override void ApplySpecialEffect(Player player)
+        {
+            if (random.NextDouble() < 0.35) // +10% к обычному магу
+            {
+                player.IsFrozen = true;
+                Console.WriteLine("Архимаг C++ заморозил вас! Вы пропустите следующий ход.");
+            }
+        }
+    }
+
+    public class PestovC : Skeleton
+    {
+        private double freezeChance = 0.4; // 15% + 25% от обычного мага
+        public PestovC() : base()
+        {
+            Name = "Пестов С-- (Босс Скелет)";
+            MaxHP = (int)(MaxHP * 1.3);
+            CurrentHP = MaxHP;
+            Attack = (int)(Attack * 1.8);
+            Defense = (int)(Defense * 0.6);
+        }
+        public override int CalculateDamage(Player player)
+        {
+            return Attack; // Полностью игнорирует защиту
+        }
+        public override void ApplySpecialEffect(Player player)
+        {
+            if (random.NextDouble() < freezeChance)
+            {
+                player.IsFrozen = true;
+                Console.WriteLine("Пестов С-- заморозил вас! Вы пропустите следующий ход.");
             }
         }
     }
