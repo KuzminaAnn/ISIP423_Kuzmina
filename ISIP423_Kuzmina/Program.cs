@@ -140,7 +140,7 @@ namespace TextRPG
         public override int CalculateDamage(Player player)
         {
             int damage = Attack;
-            if (random.NextDouble() < 0.3) // +10% к обычному гоблину
+            if (random.NextDouble() < 0.3)
             {
                 damage = (int)(damage * 1.5);
                 Console.WriteLine("ВВГ наносит критический урон!");
@@ -161,7 +161,7 @@ namespace TextRPG
         }
         public override int CalculateDamage(Player player)
         {
-            return Attack; // Полностью игнорирует защиту
+            return Attack;
         }
     }
 
@@ -177,7 +177,7 @@ namespace TextRPG
         }
         public override void ApplySpecialEffect(Player player)
         {
-            if (random.NextDouble() < 0.35) // +10% к обычному магу
+            if (random.NextDouble() < 0.35)
             {
                 player.IsFrozen = true;
                 Console.WriteLine("Архимаг C++ заморозил вас! Вы пропустите следующий ход.");
@@ -187,7 +187,7 @@ namespace TextRPG
 
     public class PestovC : Skeleton
     {
-        private double freezeChance = 0.4; // 15% + 25% от обычного мага
+        private double freezeChance = 0.4;
         public PestovC() : base()
         {
             Name = "Пестов С-- (Босс Скелет)";
@@ -198,7 +198,7 @@ namespace TextRPG
         }
         public override int CalculateDamage(Player player)
         {
-            return Attack; // Полностью игнорирует защиту
+            return Attack;
         }
         public override void ApplySpecialEffect(Player player)
         {
@@ -209,3 +209,42 @@ namespace TextRPG
             }
         }
     }
+    public class Player
+    {
+        public int MaxHP { get; private set; }
+        public int CurrentHP { get; private set; }
+        public Weapon CurrentWeapon { get; private set; }
+        public Armor CurrentArmor { get; private set; }
+        public bool IsFrozen { get; set; }
+        public bool IsDefending { get; private set; }
+
+        private Random random;
+        public Player()
+        {
+            MaxHP = 100;
+            CurrentHP = MaxHP;
+            CurrentWeapon = new Weapon("Кулаки", 5);
+            CurrentArmor = new Armor("Одежда", 2);
+            random = new Random();
+            IsFrozen = false;
+            IsDefending = false;
+        }
+        public void TakeDamage(int damage)
+        {
+            if (IsDefending)
+            {
+                if (random.NextDouble() < 0.4)
+                {
+                    Console.WriteLine("Вы увернулись от атаки!");
+                    IsDefending = false;
+                    return;
+                }
+                double blockPercent = 0.7 + (random.NextDouble() * 0.3);
+                int blockedDamage = (int)(damage * (1 - blockPercent));
+                damage = Math.Max(1, blockedDamage);
+                Console.WriteLine($"Вы заблокировали урон! Получено урона: {damage}");
+                IsDefending = false;
+            }
+            CurrentHP -= damage;
+            if (CurrentHP < 0) CurrentHP = 0;
+        }
