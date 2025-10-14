@@ -280,3 +280,33 @@ namespace TextRPG
                    $"Доспехи: {CurrentArmor.Name} (Защита: {CurrentArmor.Defense})";
         }
     }
+    public class Game
+    {
+        private Player player;
+        private Random random;
+        private int turnCount;
+
+        private List<Func<Enemy>> normalEnemies;
+        private List<Func<Enemy>> bosses;
+
+        public Game()
+        {
+            player = new Player();
+            random = new Random();
+            turnCount = 0;
+
+            normalEnemies = new List<Func<Enemy>>
+            {
+                () => new Goblin(),
+                () => new Skeleton(),
+                () => new Mage()
+            };
+
+            bosses = new List<Func<Enemy>>
+            {
+                () => new VVG(),
+                () => new Kovalsky(),
+                () => new ArchmageCPP(),
+                () => new PestovC()
+            };
+        }
