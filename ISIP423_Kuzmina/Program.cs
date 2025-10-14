@@ -47,6 +47,7 @@ namespace TextRPG
             return $"{Name} (Восстанавливает всё здоровье)";
         }
     }
+
     public abstract class Enemy
     {
         public string Name { get; protected set; }
@@ -79,5 +80,50 @@ namespace TextRPG
         public virtual string GetStatus()
         {
             return $"{Name} - HP: {CurrentHP}/{MaxHP}, Атака: {Attack}, Защита: {Defense}";
+        }
+    }
+    public class Goblin : Enemy
+    {
+        private double critChance = 0.2; // 20% шанс крита
+        public Goblin() : base("Гоблин", 30, 8, 3) { }
+        public override int CalculateDamage(Player player)
+        {
+            int damage = Attack;
+            if (random.NextDouble() < critChance)
+            {
+                damage = (int)(damage * 1.5);
+                Console.WriteLine("Критический урон!");
+            }
+            return damage;
+        }
+        public override void ApplySpecialEffect(Player player) { }
+    }
+
+    public class Skeleton : Enemy
+    {
+        public Skeleton() : base("Скелет", 25, 10, 2) { }
+
+        public override int CalculateDamage(Player player)
+        {
+            return Attack; // Игнорирует защиту
+        }
+        public override void ApplySpecialEffect(Player player) { }
+    }
+
+    public class Mage : Enemy
+    {
+        private double freezeChance = 0.25; // 25% шанс заморозки
+        public Mage() : base("Маг", 20, 12, 1) { }
+        public override int CalculateDamage(Player player)
+        {
+            return Attack;
+        }
+        public override void ApplySpecialEffect(Player player)
+        {
+            if (random.NextDouble() < freezeChance)
+            {
+                player.IsFrozen = true;
+                Console.WriteLine("Маг заморозил вас! Вы пропустите следующий ход.");
+            }
         }
     }
