@@ -354,3 +354,76 @@ namespace TextRPG
                 Console.ReadKey();
             }
         }
+        private void EncounterEnemy()
+        {
+            Console.WriteLine("\nВы встретили врага!");
+            Enemy enemy = normalEnemies[random.Next(normalEnemies.Count)]();
+            Console.WriteLine($"Перед вами: {enemy.GetStatus()}");
+
+            Battle(enemy);
+        }
+
+        private void EncounterBoss()
+        {
+            Enemy boss = bosses[random.Next(bosses.Count)]();
+            Console.WriteLine($"Перед вами: {boss.GetStatus()}");
+
+            Battle(boss);
+        }
+
+        private void Battle(Enemy enemy)
+        {
+            while (enemy.IsAlive && player.IsAlive)
+            {
+                Console.WriteLine("\nВаш ход:");
+                Console.WriteLine("1 - Атаковать");
+                Console.WriteLine("2 - Защищаться");
+
+                string choice = Console.ReadLine();
+
+                if (choice == "1")
+                {
+                    int playerDamage = player.CalculateAttack();
+                    enemy.TakeDamage(playerDamage);
+                    Console.WriteLine($"Вы нанесли {playerDamage} урона!");
+                    player.SetDefending(false);
+                }
+                else if (choice == "2")
+                {
+                    player.SetDefending(true);
+                    Console.WriteLine("Вы приготовились к защите!");
+                }
+                else
+                {
+                    Console.WriteLine("Неверный выбор, пропускаете ход!");
+                }
+
+                if (!enemy.IsAlive)
+                {
+                    Console.WriteLine($"Вы победили {enemy.Name}!");
+                    break;
+                }
+
+                Console.WriteLine($"\nХод {enemy.Name}:");
+
+                int enemyDamage = enemy.CalculateDamage(player);
+                int actualDamage = enemyDamage;
+
+                if (!(enemy is Skeleton) && !(enemy is Kovalsky) && !(enemy is PestovC))
+                {
+                    actualDamage = Math.Max(1, enemyDamage - player.CalculateDefense());
+                }
+
+                player.TakeDamage(actualDamage);
+                enemy.ApplySpecialEffect(player);
+
+                Console.WriteLine($"{enemy.Name} наносит {actualDamage} урона!");
+                Console.WriteLine(player.GetStatus());
+                Console.WriteLine(enemy.GetStatus());
+
+                if (!player.IsAlive)
+                {
+                    break;
+                }
+            }
+        }
