@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36221.1 d17.14
+VisualStudioVersion = 17.14.36221.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ISIP423_Kuzmina", "ISIP423_Kuzmina\ISIP423_Kuzmina.csproj", "{5A0814DA-1604-4C54-8A79-766C81A13E53}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3ISIP423_KUZMINA", "3ISIP423_KUZMINA\3ISIP423_KUZMINA.csproj", "{F4188CE4-AE14-4B89-AA51-0C53FC95A8CF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{5A0814DA-1604-4C54-8A79-766C81A13E53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5A0814DA-1604-4C54-8A79-766C81A13E53}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5A0814DA-1604-4C54-8A79-766C81A13E53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5A0814DA-1604-4C54-8A79-766C81A13E53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F4188CE4-AE14-4B89-AA51-0C53FC95A8CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F4188CE4-AE14-4B89-AA51-0C53FC95A8CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F4188CE4-AE14-4B89-AA51-0C53FC95A8CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F4188CE4-AE14-4B89-AA51-0C53FC95A8CF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
