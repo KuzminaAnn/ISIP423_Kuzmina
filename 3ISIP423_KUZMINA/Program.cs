@@ -32,8 +32,10 @@ namespace _3ISIP423_KUZMINA
                     List<Box> box = Core.Context.Box.ToList();
                     foreach (var boxx in box)
                     {
+                        Console.WriteLine("-----------------------------");
                         Console.WriteLine(boxx.Details.Name);
                         Console.WriteLine(boxx.Count);
+                        Console.WriteLine("-----------------------------");
                     }
                     break;
             }
