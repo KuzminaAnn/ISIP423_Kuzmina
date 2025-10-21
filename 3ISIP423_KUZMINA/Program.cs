@@ -30,6 +30,11 @@ namespace _3ISIP423_KUZMINA
                     break;
                 case "2":
                     List<Box> box = Core.Context.Box.ToList();
+                    foreach (var boxx in box)
+                    {
+                        Console.WriteLine(boxx.Details.Name);
+                        Console.WriteLine(boxx.Count);
+                    }
                     break;
             }
 
