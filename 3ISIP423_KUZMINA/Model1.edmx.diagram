@@ -4,12 +4,12 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="8001b88fccdf433ab9364b7af49ab0fd" Name="Diagram1">
+      <Diagram DiagramId="c9e92497b52144c4aaaf79215b69ddee" Name="Diagram1">
         <EntityTypeShape EntityType="gameAAZKModel.Box" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
         <EntityTypeShape EntityType="gameAAZKModel.Customers" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="gameAAZKModel.Details" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="gameAAZKModel.Problems" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="gameAAZKModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="gameAAZKModel.sysdiagrams" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
         <AssociationConnector Association="gameAAZKModel.FK_Box_Details" ManuallyRouted="false" />
         <AssociationConnector Association="gameAAZKModel.FK_Customers_Problems" ManuallyRouted="false" />
         <AssociationConnector Association="gameAAZKModel.FK_Problems_Details" ManuallyRouted="false" />
