@@ -28,6 +28,7 @@ namespace _3ISIP423_KUZMINA
                 Console.WriteLine("----------------------------------");
                 Console.WriteLine("Нажмите (1) для начала игры");
                 Console.WriteLine("Нажмите (2) для просмотря склада");
+                Console.WriteLine($"Баланс: {money}");
 
                 string a = Console.ReadLine();
                 switch (a)
@@ -53,18 +54,25 @@ namespace _3ISIP423_KUZMINA
                                 Console.WriteLine("Деталь заменена!");
                                 editCount.Count = editCount.Count - 1;
                                 Core.Context.SaveChanges();
-                                Console.WriteLine($"Итог: {money + ranCu.Problems.Price} монет, {ranCu.Problems.Details.Name} - {editCount.Count}");
+                                money = money + ranCu.Problems.Price;
+                                Console.WriteLine($"Итог: {money} монет, {ranCu.Problems.Details.Name} - {editCount.Count}");
                             }
                             else
                             {
                                 Console.WriteLine("Детали нет на складе!");
-                                Console.WriteLine($"Штраф: {money - ranCu.Problems.Price} монет");
+                                money = money - ranCu.Problems.Price;
+                                Console.WriteLine($"Штраф: {ranCu.Problems.Price} монет");
                             }
 
 
                         }
-                        //else
-                        //    Console.WriteLine("Вы отказали клиенту в ремонте.Ваш штраф составил { blu - bla}.");
+                        else if (Console.ReadLine().ToLower() == "н")  
+                        {
+                            Console.WriteLine("Клиент огорчен!");
+                            money = money - ranCu.Problems.Price;
+                            Console.WriteLine($"Штраф: {ranCu.Problems.Price} монет");
+
+                        }
 
                         break;
                     case "2":
