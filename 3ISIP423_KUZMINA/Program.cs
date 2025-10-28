@@ -11,8 +11,8 @@ namespace _3ISIP423_KUZMINA
     {
         public static Random random = new Random();
         public static Customers ranCu;
-        public static int v;
-        public static bool b;
+        public static int v = 0;
+        public static bool b = false;
         static void Main(string[] args)
         {
             
@@ -20,7 +20,10 @@ namespace _3ISIP423_KUZMINA
                 int money = 1000;
                 int br = 1;
 
- 
+                Box kupt = new Box();
+                int k = 0;
+
+
                 Console.WriteLine("ДОБРО ПОЖАЛОВАТЬ В ИГРУ!");
                 Console.WriteLine("Мой автосервис(почини авто(мы не определились с названием))");
                 Console.WriteLine($"В начале игры у вас {money} монет");
@@ -84,16 +87,17 @@ namespace _3ISIP423_KUZMINA
                             money = money - ranCu.Problems.Price;
                             Console.WriteLine($"Штраф: {ranCu.Problems.Price} монет");
                         }
-                        if (b)
+                        if (b && v == 1)
+                        {
+                            kupt.Count += k;
+                            b = false;
+                            v = 0;
+                            Console.WriteLine("Деталь добавлена на склад!");
+                        }
+                        else if (b)
                         {
                             v++;
                         }
-                        else if (b && v == 2)
-                        {
-
-                        }
-                        
-
                         break;
                     case "2":
                         List<Box> box = Core.Context.Box.ToList();
@@ -112,24 +116,29 @@ namespace _3ISIP423_KUZMINA
                         Console.WriteLine("Напишите номер товара");
                         int t = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Сколько деталей вы хотите преобрести?");
-                        int k = Convert.ToInt32(Console.ReadLine());
+                        k = Convert.ToInt32(Console.ReadLine());
 
-                        Box kupt = Core.Context.Box.First(b => b.ID_details == t);
+                        kupt = Core.Context.Box.First(b => b.ID_details == t);
                         if ((kupt.Details.Price * k) < money)
                         {
                             //kupt.Count += k;
-                            //Core.Context.SaveChanges();
+                            Core.Context.SaveChanges();
                             money = money - (kupt.Details.Price * k);
                             Console.WriteLine($"Покупка совершена! Ваш баланс {money} монет");
                             Console.WriteLine("Деталь придет на склад через 2 клиента");
                             v = 0;
-                            b=true;
+                            b = true;
                         }
                         else
                         {
                             Console.WriteLine("У вас недостаточно средств");
                         }
-                        
+                        if (b && v == 2)
+                        {
+                            kupt.Count += k;
+                            Core.Context.SaveChanges();
+                            Console.WriteLine("Деталь добавлена на склад!");
+                        }
                         break;
                     case "4":
                         Console.WriteLine("Хорошая работа! Спасибо за игру!");
@@ -145,9 +154,5 @@ namespace _3ISIP423_KUZMINA
                 
             }
         }
-
-        static void pokup()
-
-
     }
 }
