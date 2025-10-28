@@ -19,7 +19,6 @@ namespace _3ISIP423_KUZMINA
             
                 int money = 1000;
                 int br = 1;
-
                 Box kupt = new Box();
                 int k = 0;
 
@@ -45,7 +44,6 @@ namespace _3ISIP423_KUZMINA
                         List<Customers> cust = Core.Context.Customers.ToList();
                         List<Box> boxs = Core.Context.Box.ToList();
                         ranCu = cust[random.Next(0, cust.Count - 1)];
-                        //List<Problems> pro = Core.Context.Problems.ToList();
                         Console.WriteLine("К вам приехал клиент!");
                         Console.WriteLine($"Имя: {ranCu.Name} на {ranCu.Car_brand}");
                         Console.WriteLine($"Проблема: {ranCu.Problems.Name}");
@@ -56,7 +54,7 @@ namespace _3ISIP423_KUZMINA
                         string d = Console.ReadLine();
                         if (d.ToLower() == "д")
                         {
-                            Box editCount = Core.Context.Box.First(b => b.Details.Name == ranCu.Problems.Details.Name); // находим пользователя для изменений
+                            Box editCount = Core.Context.Box.First(b => b.Details.Name == ranCu.Problems.Details.Name); 
                             if (editCount.Count > 0)
                             {
                                 Console.WriteLine("Деталь заменена!");
@@ -90,6 +88,7 @@ namespace _3ISIP423_KUZMINA
                         if (b && v == 1)
                         {
                             kupt.Count += k;
+                            Core.Context.SaveChanges();
                             b = false;
                             v = 0;
                             Console.WriteLine("Деталь добавлена на склад!");
@@ -101,7 +100,6 @@ namespace _3ISIP423_KUZMINA
                         break;
                     case "2":
                         List<Box> box = Core.Context.Box.ToList();
-                        //box[random.Next(0, box.Count - 1)].Details;
                         foreach (var boxx in box)
                         {
                             Console.WriteLine($"{boxx.Details.Name} - {boxx.Count}");
@@ -121,8 +119,6 @@ namespace _3ISIP423_KUZMINA
                         kupt = Core.Context.Box.First(b => b.ID_details == t);
                         if ((kupt.Details.Price * k) < money)
                         {
-                            //kupt.Count += k;
-                            Core.Context.SaveChanges();
                             money = money - (kupt.Details.Price * k);
                             Console.WriteLine($"Покупка совершена! Ваш баланс {money} монет");
                             Console.WriteLine("Деталь придет на склад через 2 клиента");
@@ -144,14 +140,12 @@ namespace _3ISIP423_KUZMINA
                         Console.WriteLine("Хорошая работа! Спасибо за игру!");
                         br = br - 1;
                         break;
-
                 }
                 if (br == 1)
                 {
                     Console.WriteLine("Нажмите любую клавишу для продолжения");
                     Console.ReadKey();
-                }
-                
+                } 
             }
         }
     }
