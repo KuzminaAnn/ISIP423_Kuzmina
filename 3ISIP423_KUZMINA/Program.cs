@@ -11,6 +11,8 @@ namespace _3ISIP423_KUZMINA
     {
         public static Random random = new Random();
         public static Customers ranCu;
+        public static int v;
+        public static bool b;
         static void Main(string[] args)
         {
             
@@ -82,6 +84,15 @@ namespace _3ISIP423_KUZMINA
                             money = money - ranCu.Problems.Price;
                             Console.WriteLine($"Штраф: {ranCu.Problems.Price} монет");
                         }
+                        if (b)
+                        {
+                            v++;
+                        }
+                        else if (b && v == 2)
+                        {
+
+                        }
+                        
 
                         break;
                     case "2":
@@ -99,12 +110,26 @@ namespace _3ISIP423_KUZMINA
                             Console.WriteLine($"{dett.ID_details}. {dett.Name} - {dett.Price} монет");
                         }
                         Console.WriteLine("Напишите номер товара");
-                        string t = Console.ReadLine();
+                        int t = Convert.ToInt32(Console.ReadLine());
                         Console.WriteLine("Сколько деталей вы хотите преобрести?");
-                        string k = Console.ReadLine();
+                        int k = Convert.ToInt32(Console.ReadLine());
 
+                        Box kupt = Core.Context.Box.First(b => b.ID_details == t);
+                        if ((kupt.Details.Price * k) < money)
+                        {
+                            //kupt.Count += k;
+                            //Core.Context.SaveChanges();
+                            money = money - (kupt.Details.Price * k);
+                            Console.WriteLine($"Покупка совершена! Ваш баланс {money} монет");
+                            Console.WriteLine("Деталь придет на склад через 2 клиента");
+                            v = 0;
+                            b=true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("У вас недостаточно средств");
+                        }
                         
-
                         break;
                     case "4":
                         Console.WriteLine("Хорошая работа! Спасибо за игру!");
@@ -120,5 +145,9 @@ namespace _3ISIP423_KUZMINA
                 
             }
         }
+
+        static void pokup()
+
+
     }
 }
