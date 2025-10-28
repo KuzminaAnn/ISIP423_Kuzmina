@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c9e92497b52144c4aaaf79215b69ddee" Name="Diagram1">
-        <EntityTypeShape EntityType="gameAAZKModel.Box" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="gameAAZKModel.Box" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="gameAAZKModel.Customers" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="gameAAZKModel.Details" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="gameAAZKModel.Problems" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />

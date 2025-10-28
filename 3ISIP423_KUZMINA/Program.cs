@@ -16,6 +16,7 @@ namespace _3ISIP423_KUZMINA
             
             
                 int money = 1000;
+                int br = 1;
 
  
                 Console.WriteLine("ДОБРО ПОЖАЛОВАТЬ В ИГРУ!");
@@ -23,11 +24,13 @@ namespace _3ISIP423_KUZMINA
                 Console.WriteLine($"В начале игры у вас {money} монет");
                 
             
-            while (true)
+            while (br == 1)
             {
                 Console.WriteLine("----------------------------------");
-                Console.WriteLine("Нажмите (1) для начала игры");
+                Console.WriteLine("Нажмите (1) для обслуживания клиента");
                 Console.WriteLine("Нажмите (2) для просмотря склада");
+                Console.WriteLine("Нажмите (3) чтобы посетить магазин");
+                Console.WriteLine("Нажмите (4) для завершения игры");
                 Console.WriteLine($"Баланс: {money}");
 
                 string a = Console.ReadLine();
@@ -38,7 +41,6 @@ namespace _3ISIP423_KUZMINA
                         List<Box> boxs = Core.Context.Box.ToList();
                         ranCu = cust[random.Next(0, cust.Count - 1)];
                         //List<Problems> pro = Core.Context.Problems.ToList();
-                        Console.WriteLine("Игра начинается!");
                         Console.WriteLine("К вам приехал клиент!");
                         Console.WriteLine($"Имя: {ranCu.Name} на {ranCu.Car_brand}");
                         Console.WriteLine($"Проблема: {ranCu.Problems.Name}");
@@ -46,7 +48,8 @@ namespace _3ISIP423_KUZMINA
                         Console.WriteLine($"Цена: {ranCu.Problems.Price} монет");
                         Console.WriteLine("Принять клиента? д/н");
 
-                        if (Console.ReadLine().ToLower() == "д")
+                        string d = Console.ReadLine();
+                        if (d.ToLower() == "д")
                         {
                             Box editCount = Core.Context.Box.First(b => b.Details.Name == ranCu.Problems.Details.Name); // находим пользователя для изменений
                             if (editCount.Count > 0)
@@ -66,12 +69,18 @@ namespace _3ISIP423_KUZMINA
 
 
                         }
-                        else if (Console.ReadLine().ToLower() == "н")  
+                        else if (d.ToLower() == "н")  
                         {
                             Console.WriteLine("Клиент огорчен!");
                             money = money - ranCu.Problems.Price;
                             Console.WriteLine($"Штраф: {ranCu.Problems.Price} монет");
-
+                        }
+                        else
+                        {
+                            Console.WriteLine("Неверный выбор");
+                            Console.WriteLine("Клиент в недоразумении...");
+                            money = money - ranCu.Problems.Price;
+                            Console.WriteLine($"Штраф: {ranCu.Problems.Price} монет");
                         }
 
                         break;
@@ -83,10 +92,32 @@ namespace _3ISIP423_KUZMINA
                             Console.WriteLine($"{boxx.Details.Name} - {boxx.Count}");
                         }
                         break;
+                    case "3":
+                        List<Details> det = Core.Context.Details.ToList();
+                        foreach (var dett in det)
+                        {
+                            Console.WriteLine($"{dett.ID_details}. {dett.Name} - {dett.Price} монет");
+                        }
+                        Console.WriteLine("Напишите номер товара");
+                        string t = Console.ReadLine();
+                        Console.WriteLine("Сколько деталей вы хотите преобрести?");
+                        string k = Console.ReadLine();
+
+                        
+
+                        break;
+                    case "4":
+                        Console.WriteLine("Хорошая работа! Спасибо за игру!");
+                        br = br - 1;
+                        break;
 
                 }
-                Console.WriteLine("Нажмите любую клавишу для продолжения");
-                Console.ReadKey();
+                if (br == 1)
+                {
+                    Console.WriteLine("Нажмите любую клавишу для продолжения");
+                    Console.ReadKey();
+                }
+                
             }
         }
     }
