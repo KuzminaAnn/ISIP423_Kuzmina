@@ -13,10 +13,10 @@ namespace _3ISIP423_KUZMINA
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class gameAAZKEntities : DbContext
+    public partial class marketEntities : DbContext
     {
-        public gameAAZKEntities()
-            : base("name=gameAAZKEntities")
+        public marketEntities()
+            : base("name=marketEntities")
         {
         }
     
@@ -25,10 +25,12 @@ namespace _3ISIP423_KUZMINA
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Box> Box { get; set; }
-        public virtual DbSet<Customers> Customers { get; set; }
-        public virtual DbSet<Details> Details { get; set; }
-        public virtual DbSet<Problems> Problems { get; set; }
+        public virtual DbSet<Basket> Basket { get; set; }
+        public virtual DbSet<Orders> Orders { get; set; }
+        public virtual DbSet<OrdersProduct> OrdersProduct { get; set; }
+        public virtual DbSet<Point> Point { get; set; }
+        public virtual DbSet<Product> Product { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<User> User { get; set; }
     }
 }

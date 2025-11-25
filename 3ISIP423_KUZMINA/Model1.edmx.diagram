@@ -4,15 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c9e92497b52144c4aaaf79215b69ddee" Name="Diagram1">
-        <EntityTypeShape EntityType="gameAAZKModel.Box" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="gameAAZKModel.Customers" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="gameAAZKModel.Details" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="gameAAZKModel.Problems" Width="1.5" PointX="3" PointY="3.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="gameAAZKModel.sysdiagrams" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
-        <AssociationConnector Association="gameAAZKModel.FK_Box_Details" ManuallyRouted="false" />
-        <AssociationConnector Association="gameAAZKModel.FK_Customers_Problems" ManuallyRouted="false" />
-        <AssociationConnector Association="gameAAZKModel.FK_Problems_Details" ManuallyRouted="false" />
+      <Diagram DiagramId="4bb4306e2c4145aeb425be60b9df30b9" Name="Diagram1">
+        <EntityTypeShape EntityType="marketModel.Basket" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.Orders" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.OrdersProduct" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.Point" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.Product" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.User" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <AssociationConnector Association="marketModel.FK_Basket_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="marketModel.FK_Basket_User" ManuallyRouted="false" />
+        <AssociationConnector Association="marketModel.FK_Orders_Point" ManuallyRouted="false" />
+        <AssociationConnector Association="marketModel.FK_Orders_User" ManuallyRouted="false" />
+        <AssociationConnector Association="marketModel.FK_OrdersProduct_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="marketModel.FK_OrdersProduct_Product" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

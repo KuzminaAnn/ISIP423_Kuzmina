@@ -8,6 +8,6 @@ namespace _3ISIP423_KUZMINA
 {
     internal class Core
     {
-        public static gameAAZKEntities Context = new gameAAZKEntities();
+        public static marketEntities Context = new marketEntities();
     }
 }

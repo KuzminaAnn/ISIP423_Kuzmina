@@ -12,13 +12,14 @@ namespace _3ISIP423_KUZMINA
     using System;
     using System.Collections.Generic;
     
-    public partial class Customers
+    public partial class Basket
     {
-        public int ID_customers { get; set; }
-        public string Name { get; set; }
-        public string Car_brand { get; set; }
-        public int ID_problems { get; set; }
+        public int ID_basket { get; set; }
+        public int ID_product { get; set; }
+        public int Count { get; set; }
+        public int ID_user { get; set; }
     
-        public virtual Problems Problems { get; set; }
+        public virtual Product Product { get; set; }
+        public virtual User User { get; set; }
     }
 }

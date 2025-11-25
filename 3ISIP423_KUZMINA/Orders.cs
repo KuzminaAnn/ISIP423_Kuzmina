@@ -12,21 +12,21 @@ namespace _3ISIP423_KUZMINA
     using System;
     using System.Collections.Generic;
     
-    public partial class Problems
+    public partial class Orders
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Problems()
+        public Orders()
         {
-            this.Customers = new HashSet<Customers>();
+            this.OrdersProduct = new HashSet<OrdersProduct>();
         }
     
-        public int ID_problems { get; set; }
-        public string Name { get; set; }
-        public int Price { get; set; }
-        public int ID_details { get; set; }
+        public int ID_orders { get; set; }
+        public int ID_user { get; set; }
+        public int ID_point { get; set; }
     
+        public virtual Point Point { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customers> Customers { get; set; }
-        public virtual Details Details { get; set; }
+        public virtual ICollection<OrdersProduct> OrdersProduct { get; set; }
     }
 }

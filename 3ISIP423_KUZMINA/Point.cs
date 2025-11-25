@@ -12,12 +12,18 @@ namespace _3ISIP423_KUZMINA
     using System;
     using System.Collections.Generic;
     
-    public partial class Box
+    public partial class Point
     {
-        public int ID_box { get; set; }
-        public int ID_details { get; set; }
-        public int Count { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Point()
+        {
+            this.Orders = new HashSet<Orders>();
+        }
     
-        public virtual Details Details { get; set; }
+        public int ID_point { get; set; }
+        public string Adress { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Orders> Orders { get; set; }
     }
 }

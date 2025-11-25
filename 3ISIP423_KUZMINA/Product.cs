@@ -12,22 +12,22 @@ namespace _3ISIP423_KUZMINA
     using System;
     using System.Collections.Generic;
     
-    public partial class Details
+    public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Details()
+        public Product()
         {
-            this.Box = new HashSet<Box>();
-            this.Problems = new HashSet<Problems>();
+            this.Basket = new HashSet<Basket>();
+            this.OrdersProduct = new HashSet<OrdersProduct>();
         }
     
-        public int ID_details { get; set; }
+        public int ID_product { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Box> Box { get; set; }
+        public virtual ICollection<Basket> Basket { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Problems> Problems { get; set; }
+        public virtual ICollection<OrdersProduct> OrdersProduct { get; set; }
     }
 }

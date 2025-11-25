@@ -4,40 +4,47 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Хранилище gameAAZKModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <EntityType Name="Box">
+      <Schema Namespace="Хранилище marketModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Basket">
           <Key>
-            <PropertyRef Name="ID box" />
+            <PropertyRef Name="ID_basket" />
           </Key>
-          <Property Name="ID box" Type="int" Nullable="false" />
-          <Property Name="ID details" Type="int" Nullable="false" />
+          <Property Name="ID_basket" Type="int" Nullable="false" />
+          <Property Name="ID_product" Type="int" Nullable="false" />
+          <Property Name="Count" Type="int" Nullable="false" />
+          <Property Name="ID_user" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="ID_orders" />
+          </Key>
+          <Property Name="ID_orders" Type="int" Nullable="false" />
+          <Property Name="ID_user" Type="int" Nullable="false" />
+          <Property Name="ID_point" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrdersProduct">
+          <Key>
+            <PropertyRef Name="ID_orders" />
+            <PropertyRef Name="ID_product" />
+          </Key>
+          <Property Name="ID_orders" Type="int" Nullable="false" />
+          <Property Name="ID_product" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Customers">
+        <EntityType Name="Point">
           <Key>
-            <PropertyRef Name="ID customers" />
+            <PropertyRef Name="ID_point" />
           </Key>
-          <Property Name="ID customers" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Car brand" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="ID problems" Type="int" Nullable="false" />
+          <Property Name="ID_point" Type="int" Nullable="false" />
+          <Property Name="Adress" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
-        <EntityType Name="Details">
+        <EntityType Name="Product">
           <Key>
-            <PropertyRef Name="ID details" />
+            <PropertyRef Name="ID_product" />
           </Key>
-          <Property Name="ID details" Type="int" Nullable="false" />
+          <Property Name="ID_product" Type="int" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Price" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Problems">
-          <Key>
-            <PropertyRef Name="ID problems" />
-          </Key>
-          <Property Name="ID problems" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Price" Type="int" Nullable="false" />
-          <Property Name="ID details" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -49,105 +56,174 @@
           <Property Name="version" Type="int" />
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
-        <Association Name="FK_Box_Details">
-          <End Role="Details" Type="Self.Details" Multiplicity="1" />
-          <End Role="Box" Type="Self.Box" Multiplicity="*" />
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID_user" />
+          </Key>
+          <Property Name="ID_user" Type="int" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Basket_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Details">
-              <PropertyRef Name="ID details" />
+            <Principal Role="Product">
+              <PropertyRef Name="ID_product" />
             </Principal>
-            <Dependent Role="Box">
-              <PropertyRef Name="ID details" />
+            <Dependent Role="Basket">
+              <PropertyRef Name="ID_product" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Customers_Problems">
-          <End Role="Problems" Type="Self.Problems" Multiplicity="1" />
-          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+        <Association Name="FK_Basket_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Problems">
-              <PropertyRef Name="ID problems" />
+            <Principal Role="User">
+              <PropertyRef Name="ID_user" />
             </Principal>
-            <Dependent Role="Customers">
-              <PropertyRef Name="ID problems" />
+            <Dependent Role="Basket">
+              <PropertyRef Name="ID_user" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Problems_Details">
-          <End Role="Details" Type="Self.Details" Multiplicity="1" />
-          <End Role="Problems" Type="Self.Problems" Multiplicity="*" />
+        <Association Name="FK_Orders_Point">
+          <End Role="Point" Type="Self.Point" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Details">
-              <PropertyRef Name="ID details" />
+            <Principal Role="Point">
+              <PropertyRef Name="ID_point" />
             </Principal>
-            <Dependent Role="Problems">
-              <PropertyRef Name="ID details" />
+            <Dependent Role="Orders">
+              <PropertyRef Name="ID_point" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Хранилище gameAAZKModelContainer">
-          <EntitySet Name="Box" EntityType="Self.Box" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Details" EntityType="Self.Details" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Problems" EntityType="Self.Problems" Schema="dbo" store:Type="Tables" />
+        <Association Name="FK_Orders_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ID_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersProduct_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrdersProduct" Type="Self.OrdersProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="ID_orders" />
+            </Principal>
+            <Dependent Role="OrdersProduct">
+              <PropertyRef Name="ID_orders" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersProduct_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OrdersProduct" Type="Self.OrdersProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID_product" />
+            </Principal>
+            <Dependent Role="OrdersProduct">
+              <PropertyRef Name="ID_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище marketModelContainer">
+          <EntitySet Name="Basket" EntityType="Self.Basket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdersProduct" EntityType="Self.OrdersProduct" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Point" EntityType="Self.Point" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Box_Details" Association="Self.FK_Box_Details">
-            <End Role="Details" EntitySet="Details" />
-            <End Role="Box" EntitySet="Box" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Basket_Product" Association="Self.FK_Basket_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Basket" EntitySet="Basket" />
           </AssociationSet>
-          <AssociationSet Name="FK_Customers_Problems" Association="Self.FK_Customers_Problems">
-            <End Role="Problems" EntitySet="Problems" />
-            <End Role="Customers" EntitySet="Customers" />
+          <AssociationSet Name="FK_Basket_User" Association="Self.FK_Basket_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Basket" EntitySet="Basket" />
           </AssociationSet>
-          <AssociationSet Name="FK_Problems_Details" Association="Self.FK_Problems_Details">
-            <End Role="Details" EntitySet="Details" />
-            <End Role="Problems" EntitySet="Problems" />
+          <AssociationSet Name="FK_Orders_Point" Association="Self.FK_Orders_Point">
+            <End Role="Point" EntitySet="Point" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_User" Association="Self.FK_Orders_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersProduct_Orders" Association="Self.FK_OrdersProduct_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrdersProduct" EntitySet="OrdersProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersProduct_Product" Association="Self.FK_OrdersProduct_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OrdersProduct" EntitySet="OrdersProduct" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="gameAAZKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Box">
+      <Schema Namespace="marketModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Basket">
           <Key>
-            <PropertyRef Name="ID_box" />
+            <PropertyRef Name="ID_basket" />
           </Key>
-          <Property Name="ID_box" Type="Int32" Nullable="false" />
-          <Property Name="ID_details" Type="Int32" Nullable="false" />
+          <Property Name="ID_basket" Type="Int32" Nullable="false" />
+          <Property Name="ID_product" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Details" Relationship="Self.FK_Box_Details" FromRole="Box" ToRole="Details" />
+          <Property Name="ID_user" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Basket_Product" FromRole="Basket" ToRole="Product" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Basket_User" FromRole="Basket" ToRole="User" />
         </EntityType>
-        <EntityType Name="Customers">
+        <EntityType Name="Orders">
           <Key>
-            <PropertyRef Name="ID_customers" />
+            <PropertyRef Name="ID_orders" />
           </Key>
-          <Property Name="ID_customers" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Car_brand" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ID_problems" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Problems" Relationship="Self.FK_Customers_Problems" FromRole="Customers" ToRole="Problems" />
+          <Property Name="ID_orders" Type="Int32" Nullable="false" />
+          <Property Name="ID_user" Type="Int32" Nullable="false" />
+          <Property Name="ID_point" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Point" Relationship="Self.FK_Orders_Point" FromRole="Orders" ToRole="Point" />
+          <NavigationProperty Name="User" Relationship="Self.FK_Orders_User" FromRole="Orders" ToRole="User" />
+          <NavigationProperty Name="OrdersProduct" Relationship="Self.FK_OrdersProduct_Orders" FromRole="Orders" ToRole="OrdersProduct" />
         </EntityType>
-        <EntityType Name="Details">
+        <EntityType Name="OrdersProduct">
           <Key>
-            <PropertyRef Name="ID_details" />
+            <PropertyRef Name="ID_orders" />
+            <PropertyRef Name="ID_product" />
           </Key>
-          <Property Name="ID_details" Type="Int32" Nullable="false" />
+          <Property Name="ID_orders" Type="Int32" Nullable="false" />
+          <Property Name="ID_product" Type="Int32" Nullable="false" />
+          <Property Name="Count" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_OrdersProduct_Orders" FromRole="OrdersProduct" ToRole="Orders" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_OrdersProduct_Product" FromRole="OrdersProduct" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Point">
+          <Key>
+            <PropertyRef Name="ID_point" />
+          </Key>
+          <Property Name="ID_point" Type="Int32" Nullable="false" />
+          <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Point" FromRole="Point" ToRole="Orders" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ID_product" />
+          </Key>
+          <Property Name="ID_product" Type="Int32" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Box" Relationship="Self.FK_Box_Details" FromRole="Details" ToRole="Box" />
-          <NavigationProperty Name="Problems" Relationship="Self.FK_Problems_Details" FromRole="Details" ToRole="Problems" />
-        </EntityType>
-        <EntityType Name="Problems">
-          <Key>
-            <PropertyRef Name="ID_problems" />
-          </Key>
-          <Property Name="ID_problems" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Price" Type="Int32" Nullable="false" />
-          <Property Name="ID_details" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Customers" Relationship="Self.FK_Customers_Problems" FromRole="Problems" ToRole="Customers" />
-          <NavigationProperty Name="Details" Relationship="Self.FK_Problems_Details" FromRole="Problems" ToRole="Details" />
+          <NavigationProperty Name="Basket" Relationship="Self.FK_Basket_Product" FromRole="Product" ToRole="Basket" />
+          <NavigationProperty Name="OrdersProduct" Relationship="Self.FK_OrdersProduct_Product" FromRole="Product" ToRole="OrdersProduct" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -159,59 +235,119 @@
           <Property Name="version" Type="Int32" />
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
-        <Association Name="FK_Box_Details">
-          <End Role="Details" Type="Self.Details" Multiplicity="1" />
-          <End Role="Box" Type="Self.Box" Multiplicity="*" />
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID_user" />
+          </Key>
+          <Property Name="ID_user" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Basket" Relationship="Self.FK_Basket_User" FromRole="User" ToRole="Basket" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_User" FromRole="User" ToRole="Orders" />
+        </EntityType>
+        <Association Name="FK_Basket_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Details">
-              <PropertyRef Name="ID_details" />
+            <Principal Role="Product">
+              <PropertyRef Name="ID_product" />
             </Principal>
-            <Dependent Role="Box">
-              <PropertyRef Name="ID_details" />
+            <Dependent Role="Basket">
+              <PropertyRef Name="ID_product" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Customers_Problems">
-          <End Role="Problems" Type="Self.Problems" Multiplicity="1" />
-          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+        <Association Name="FK_Basket_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Basket" Type="Self.Basket" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Problems">
-              <PropertyRef Name="ID_problems" />
+            <Principal Role="User">
+              <PropertyRef Name="ID_user" />
             </Principal>
-            <Dependent Role="Customers">
-              <PropertyRef Name="ID_problems" />
+            <Dependent Role="Basket">
+              <PropertyRef Name="ID_user" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Problems_Details">
-          <End Role="Details" Type="Self.Details" Multiplicity="1" />
-          <End Role="Problems" Type="Self.Problems" Multiplicity="*" />
+        <Association Name="FK_Orders_Point">
+          <End Role="Point" Type="Self.Point" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Details">
-              <PropertyRef Name="ID_details" />
+            <Principal Role="Point">
+              <PropertyRef Name="ID_point" />
             </Principal>
-            <Dependent Role="Problems">
-              <PropertyRef Name="ID_details" />
+            <Dependent Role="Orders">
+              <PropertyRef Name="ID_point" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="gameAAZKEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Box" EntityType="Self.Box" />
-          <EntitySet Name="Customers" EntityType="Self.Customers" />
-          <EntitySet Name="Details" EntityType="Self.Details" />
-          <EntitySet Name="Problems" EntityType="Self.Problems" />
+        <Association Name="FK_Orders_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="ID_user" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="ID_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersProduct_Orders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="OrdersProduct" Type="Self.OrdersProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="ID_orders" />
+            </Principal>
+            <Dependent Role="OrdersProduct">
+              <PropertyRef Name="ID_orders" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdersProduct_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="OrdersProduct" Type="Self.OrdersProduct" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ID_product" />
+            </Principal>
+            <Dependent Role="OrdersProduct">
+              <PropertyRef Name="ID_product" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="marketEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Basket" EntityType="Self.Basket" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="OrdersProduct" EntityType="Self.OrdersProduct" />
+          <EntitySet Name="Point" EntityType="Self.Point" />
+          <EntitySet Name="Product" EntityType="Self.Product" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
-          <AssociationSet Name="FK_Box_Details" Association="Self.FK_Box_Details">
-            <End Role="Details" EntitySet="Details" />
-            <End Role="Box" EntitySet="Box" />
+          <EntitySet Name="User" EntityType="Self.User" />
+          <AssociationSet Name="FK_Basket_Product" Association="Self.FK_Basket_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Basket" EntitySet="Basket" />
           </AssociationSet>
-          <AssociationSet Name="FK_Customers_Problems" Association="Self.FK_Customers_Problems">
-            <End Role="Problems" EntitySet="Problems" />
-            <End Role="Customers" EntitySet="Customers" />
+          <AssociationSet Name="FK_Basket_User" Association="Self.FK_Basket_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Basket" EntitySet="Basket" />
           </AssociationSet>
-          <AssociationSet Name="FK_Problems_Details" Association="Self.FK_Problems_Details">
-            <End Role="Details" EntitySet="Details" />
-            <End Role="Problems" EntitySet="Problems" />
+          <AssociationSet Name="FK_Orders_Point" Association="Self.FK_Orders_Point">
+            <End Role="Point" EntitySet="Point" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_User" Association="Self.FK_Orders_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersProduct_Orders" Association="Self.FK_OrdersProduct_Orders">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrdersProduct" EntitySet="OrdersProduct" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdersProduct_Product" Association="Self.FK_OrdersProduct_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OrdersProduct" EntitySet="OrdersProduct" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -219,53 +355,69 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище gameAAZKModelContainer" CdmEntityContainer="gameAAZKEntities">
-          <EntitySetMapping Name="Box">
-            <EntityTypeMapping TypeName="gameAAZKModel.Box">
-              <MappingFragment StoreEntitySet="Box">
-                <ScalarProperty Name="ID_box" ColumnName="ID box" />
-                <ScalarProperty Name="ID_details" ColumnName="ID details" />
+        <EntityContainerMapping StorageEntityContainer="Хранилище marketModelContainer" CdmEntityContainer="marketEntities">
+          <EntitySetMapping Name="Basket">
+            <EntityTypeMapping TypeName="marketModel.Basket">
+              <MappingFragment StoreEntitySet="Basket">
+                <ScalarProperty Name="ID_basket" ColumnName="ID_basket" />
+                <ScalarProperty Name="ID_product" ColumnName="ID_product" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="marketModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="ID_orders" ColumnName="ID_orders" />
+                <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+                <ScalarProperty Name="ID_point" ColumnName="ID_point" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdersProduct">
+            <EntityTypeMapping TypeName="marketModel.OrdersProduct">
+              <MappingFragment StoreEntitySet="OrdersProduct">
+                <ScalarProperty Name="ID_orders" ColumnName="ID_orders" />
+                <ScalarProperty Name="ID_product" ColumnName="ID_product" />
                 <ScalarProperty Name="Count" ColumnName="Count" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Customers">
-            <EntityTypeMapping TypeName="gameAAZKModel.Customers">
-              <MappingFragment StoreEntitySet="Customers">
-                <ScalarProperty Name="ID_customers" ColumnName="ID customers" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Car_brand" ColumnName="Car brand" />
-                <ScalarProperty Name="ID_problems" ColumnName="ID problems" />
+          <EntitySetMapping Name="Point">
+            <EntityTypeMapping TypeName="marketModel.Point">
+              <MappingFragment StoreEntitySet="Point">
+                <ScalarProperty Name="ID_point" ColumnName="ID_point" />
+                <ScalarProperty Name="Adress" ColumnName="Adress" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Details">
-            <EntityTypeMapping TypeName="gameAAZKModel.Details">
-              <MappingFragment StoreEntitySet="Details">
-                <ScalarProperty Name="ID_details" ColumnName="ID details" />
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="marketModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="ID_product" ColumnName="ID_product" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Problems">
-            <EntityTypeMapping TypeName="gameAAZKModel.Problems">
-              <MappingFragment StoreEntitySet="Problems">
-                <ScalarProperty Name="ID_problems" ColumnName="ID problems" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="ID_details" ColumnName="ID details" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="gameAAZKModel.sysdiagrams">
+            <EntityTypeMapping TypeName="marketModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="User">
+            <EntityTypeMapping TypeName="marketModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="ID_user" ColumnName="ID_user" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
