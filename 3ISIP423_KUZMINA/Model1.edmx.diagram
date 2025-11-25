@@ -9,8 +9,8 @@
         <EntityTypeShape EntityType="marketModel.Orders" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="marketModel.OrdersProduct" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="marketModel.Point" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="marketModel.Product" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="marketModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.Product" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="marketModel.sysdiagrams" Width="1.5" PointX="8.375" PointY="2.875" IsExpanded="true" />
         <EntityTypeShape EntityType="marketModel.User" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <AssociationConnector Association="marketModel.FK_Basket_Product" ManuallyRouted="false" />
         <AssociationConnector Association="marketModel.FK_Basket_User" ManuallyRouted="false" />

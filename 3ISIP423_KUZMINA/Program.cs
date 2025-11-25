@@ -14,19 +14,18 @@ namespace _3ISIP423_KUZMINA
         {
             int br = 1;
 
-                Console.WriteLine("ДОБРО ПОЖАЛОВАТЬ В ИГРУ!");
-                Console.WriteLine("Мой автосервис(почини авто(мы не определились с названием))");
-                Console.WriteLine($"В начале игры у вас {money} монет");
+                Console.WriteLine("Добро пожаловать в онлайн маркетплейс WONGG!");
+
                 
             
             while (br == 1)
             {
-                Console.WriteLine("----------------------------------");
-                Console.WriteLine("Нажмите (1) для обслуживания клиента");
-                Console.WriteLine("Нажмите (2) для просмотря склада");
-                Console.WriteLine("Нажмите (3) чтобы посетить магазин");
-                Console.WriteLine("Нажмите (4) для завершения игры");
-                Console.WriteLine($"Баланс: {money}");
+                Console.WriteLine("---------------------------------------------------");
+                Console.WriteLine("Нажмите (1) для того чтобы войти/зарегистрироваться");
+                Console.WriteLine("Нажмите (2) для просмотра товаров");
+                Console.WriteLine("Нажмите (3) чтобы просмотра корзины");
+                Console.WriteLine("Нажмите (4) для выхода из магазина");
+
 
                 string a = Console.ReadLine();
                 switch (a)
@@ -36,7 +35,11 @@ namespace _3ISIP423_KUZMINA
                         break;
 
                     case "2":
-                        
+                        List<Product> product = Core.Context.Product.ToList();
+                        foreach (var producttt in product)
+                        {
+                            Console.WriteLine($"{producttt.Name} - {producttt.Price} рублей");
+                        }
                         break;
 
                     case "3":
@@ -44,7 +47,7 @@ namespace _3ISIP423_KUZMINA
                         break;
 
                     case "4":
-                        Console.WriteLine("Хорошая работа! Спасибо за игру!");
+                        Console.WriteLine("Заходите ещё! Нагиев ждёт вас!!");
                         br = br - 1;
                         break;
                 }
