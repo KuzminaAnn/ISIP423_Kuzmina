@@ -41,8 +41,10 @@ namespace _3ISIP423_KUZMINA
                         {
                             case "1":
                                 List<User> users = Core.Context.User.ToList();
+                                Console.WriteLine("Введите логин:");
                                 string aflogin = Console.ReadLine();
-                                User afuser = users.First(U => U.Login == aflogin);
+                                User afuser = users.First(U => U.Login.ToLower() == aflogin.ToLower());
+                                Console.WriteLine("Введите пароль:");
                                 string afpasword = Console.ReadLine();
                                 if (afuser.Password == afpasword)
                                 {
@@ -54,10 +56,34 @@ namespace _3ISIP423_KUZMINA
                                     Console.WriteLine("Неверный пароль");
 
                                 }
-
                                 break;
 
                             case "2":
+                                List<User> userss = Core.Context.User.ToList();
+                                Console.WriteLine("введите логин:");
+                                string newlogin = Console.ReadLine();
+                                Console.WriteLine("Введите пароль:");
+                                string newpasword = Console.ReadLine();
+                                Console.WriteLine("Введите пароль повторно:");
+                                string newpasword1 = Console.ReadLine();
+
+                                if (newpasword == newpasword1)
+                                {
+                                    User user = new User
+                                    {
+                                        Login = newlogin,
+                                        Password = newpasword
+                                    };
+                                    Core.Context.User.Add(user);
+                                    Core.Context.SaveChanges();
+
+                                    kupt = user;
+                                    Console.WriteLine("Вы вошли в свой аккаунт!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Пароль не совпадает");
+                                }
                                 break;
                         }
                         break;
