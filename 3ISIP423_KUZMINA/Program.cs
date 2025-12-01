@@ -129,9 +129,33 @@ namespace _3ISIP423_KUZMINA
                         bbasket = bbasket.Where(b => b.ID_user == kupt.ID_user).ToList();
                         foreach (var bbaskettt in bbasket)
                         {
-                            Console.WriteLine($"{bbaskettt.Product.Name} - {bbaskettt.Count}шт");
+                            Console.WriteLine($"{bbaskettt.ID_product}. {bbaskettt.Product.Name} - {bbaskettt.Count}шт");
+                        }
+                        Console.WriteLine("Хотите сделать заказ? д/н");
+
+                        string answ = Console.ReadLine();
+                        if (answ.ToLower() == "д")
+                        {
+                            Console.WriteLine("Нажмите (1) для заказа всех товаров");
+                            Console.WriteLine("Нажмите (2) для заказа одного товара");
+                            string w = Console.ReadLine();
+                                switch (w)
+                                {
+                                    case "1":
+                                    Console.WriteLine("Выберете ПВЗ:");
+                                    List<Point> ppoint = Core.Context.Point.ToList();
+                                    foreach (var ppointtt in ppoint)
+                                    {
+                                        Console.WriteLine($"{ppointtt.ID_point}. {ppointtt.Adress}");
+                                    }
+                                    break;
+                                    case "2":
+
+                                        break;
+                                }
                         }
                         break;
+
 
                     case "4":
                         Console.WriteLine("Заходите ещё! Нагиев ждёт вас!!");
