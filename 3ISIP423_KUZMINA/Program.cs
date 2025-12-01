@@ -14,7 +14,7 @@ namespace _3ISIP423_KUZMINA
         static void Main(string[] args)
         {
             int br = 1;
-            User kupt;
+            User kupt = null;
 
             Console.WriteLine("Добро пожаловать в онлайн маркетплейс WONGG!");
 
@@ -108,7 +108,7 @@ namespace _3ISIP423_KUZMINA
                             Basket newBask = new Basket();
                             newBask.Count = k;
                             newBask.ID_product = t;
-                            newBask.ID_user = 1;
+                            newBask.ID_user = kupt.ID_user;
                             Core.Context.Basket.Add(newBask);
                             Core.Context.SaveChanges();
                             Console.WriteLine("Товар добавлен в карзину!");
@@ -126,9 +126,10 @@ namespace _3ISIP423_KUZMINA
 
                     case "3":
                         List<Basket> bbasket = Core.Context.Basket.ToList();
+                        bbasket = bbasket.Where(b => b.ID_user == kupt.ID_user).ToList();
                         foreach (var bbaskettt in bbasket)
                         {
-                            Console.WriteLine($"{bbaskettt.Product.ID_product}");
+                            Console.WriteLine($"{bbaskettt.Product.Name} - {bbaskettt.Count}шт");
                         }
                         break;
 
