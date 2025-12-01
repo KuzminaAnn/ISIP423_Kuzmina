@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="ID_basket" />
           </Key>
-          <Property Name="ID_basket" Type="int" Nullable="false" />
+          <Property Name="ID_basket" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_product" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" Nullable="false" />
           <Property Name="ID_user" Type="int" Nullable="false" />
@@ -18,7 +18,7 @@
           <Key>
             <PropertyRef Name="ID_orders" />
           </Key>
-          <Property Name="ID_orders" Type="int" Nullable="false" />
+          <Property Name="ID_orders" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ID_user" Type="int" Nullable="false" />
           <Property Name="ID_point" Type="int" Nullable="false" />
         </EntityType>
@@ -35,14 +35,14 @@
           <Key>
             <PropertyRef Name="ID_point" />
           </Key>
-          <Property Name="ID_point" Type="int" Nullable="false" />
+          <Property Name="ID_point" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Adress" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="ID_product" />
           </Key>
-          <Property Name="ID_product" Type="int" Nullable="false" />
+          <Property Name="ID_product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Price" Type="int" Nullable="false" />
         </EntityType>
@@ -60,7 +60,7 @@
           <Key>
             <PropertyRef Name="ID_user" />
           </Key>
-          <Property Name="ID_user" Type="int" Nullable="false" />
+          <Property Name="ID_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
@@ -178,7 +178,7 @@
           <Key>
             <PropertyRef Name="ID_basket" />
           </Key>
-          <Property Name="ID_basket" Type="Int32" Nullable="false" />
+          <Property Name="ID_basket" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_product" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" Nullable="false" />
           <Property Name="ID_user" Type="Int32" Nullable="false" />
@@ -189,7 +189,7 @@
           <Key>
             <PropertyRef Name="ID_orders" />
           </Key>
-          <Property Name="ID_orders" Type="Int32" Nullable="false" />
+          <Property Name="ID_orders" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ID_user" Type="Int32" Nullable="false" />
           <Property Name="ID_point" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Point" Relationship="Self.FK_Orders_Point" FromRole="Orders" ToRole="Point" />
@@ -211,7 +211,7 @@
           <Key>
             <PropertyRef Name="ID_point" />
           </Key>
-          <Property Name="ID_point" Type="Int32" Nullable="false" />
+          <Property Name="ID_point" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Adress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Point" FromRole="Point" ToRole="Orders" />
         </EntityType>
@@ -219,7 +219,7 @@
           <Key>
             <PropertyRef Name="ID_product" />
           </Key>
-          <Property Name="ID_product" Type="Int32" Nullable="false" />
+          <Property Name="ID_product" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Price" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Basket" Relationship="Self.FK_Basket_Product" FromRole="Product" ToRole="Basket" />
@@ -239,7 +239,7 @@
           <Key>
             <PropertyRef Name="ID_user" />
           </Key>
-          <Property Name="ID_user" Type="Int32" Nullable="false" />
+          <Property Name="ID_user" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Basket" Relationship="Self.FK_Basket_User" FromRole="User" ToRole="Basket" />

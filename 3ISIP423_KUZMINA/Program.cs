@@ -14,12 +14,12 @@ namespace _3ISIP423_KUZMINA
         static void Main(string[] args)
         {
             int br = 1;
-            Basket kupt = new Basket();
+            User kupt;
 
             Console.WriteLine("Добро пожаловать в онлайн маркетплейс WONGG!");
 
-                
-            
+
+
             while (br == 1)
             {
                 Console.WriteLine("---------------------------------------------------");
@@ -33,12 +33,38 @@ namespace _3ISIP423_KUZMINA
                 switch (a)
                 {
                     case "1":
-                       
+                        Console.WriteLine("Нажмите (1) для входа");
+                        Console.WriteLine("Нажмите (2) для регистрации");
+
+                        string v = Console.ReadLine();
+                        switch (v)
+                        {
+                            case "1":
+                                List<User> users = Core.Context.User.ToList();
+                                string aflogin = Console.ReadLine();
+                                User afuser = users.First(U => U.Login == aflogin);
+                                string afpasword = Console.ReadLine();
+                                if (afuser.Password == afpasword)
+                                {
+                                    kupt = afuser;
+                                    Console.WriteLine("Вы вошли в свой аккаунт!");
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Неверный пароль");
+
+                                }
+
+                                break;
+
+                            case "2":
+                                break;
+                        }
                         break;
 
                     case "2":
                         List<Product> product = Core.Context.Product.ToList();
-                        List<Basket> basket = Core.Context.Basket.ToList();
+                        //List<Basket> basket = Core.Context.Basket.ToList();
                         foreach (var producttt in product)
                         {
                             Console.WriteLine($"{producttt.ID_product}. {producttt.Name} - {producttt.Price} рублей");
@@ -53,9 +79,13 @@ namespace _3ISIP423_KUZMINA
                             Console.WriteLine("Сколько товара вы хотите преобрести?");
                             int k = Convert.ToInt32(Console.ReadLine());
 
-                            kupt.Count += k;
-                            Core.Context.Basket.Add(kupt);
+                            Basket newBask = new Basket();
+                            newBask.Count = k;
+                            newBask.ID_product = t;
+                            newBask.ID_user = 1;
+                            Core.Context.Basket.Add(newBask);
                             Core.Context.SaveChanges();
+                            Console.WriteLine("Товар добавлен в карзину!");
                         }
                         else if (ans.ToLower() == "н")
                         {
@@ -66,7 +96,7 @@ namespace _3ISIP423_KUZMINA
                             Console.WriteLine("Неверный выбор");
                         }
 
-                            break;
+                        break;
 
                     case "3":
                         List<Basket> bbasket = Core.Context.Basket.ToList();
@@ -85,7 +115,7 @@ namespace _3ISIP423_KUZMINA
                 {
                     Console.WriteLine("Нажмите любую клавишу для продолжения");
                     Console.ReadKey();
-                } 
+                }
             }
         }
     }
