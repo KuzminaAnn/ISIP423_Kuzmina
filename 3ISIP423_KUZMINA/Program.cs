@@ -165,8 +165,10 @@ namespace _3ISIP423_KUZMINA
                                         newwOrderaProduct.ID_orders = newwOrders.ID_orders;
                                         newwOrderaProduct.ID_product = baaskett.ID_product;
                                         newwOrderaProduct.Count = baaskett.Count;
-                                        Core.Context.Basket.Remove(baaskett);
                                         Core.Context.OrdersProduct.Add(newwOrderaProduct);
+                                        Core.Context.SaveChanges();
+
+                                        Core.Context.Basket.Remove(baaskett);
                                         Core.Context.SaveChanges();
                                     }
                                     Console.WriteLine("Заказ оформлен! Следите за ним в вкладке заказы");
@@ -193,10 +195,10 @@ namespace _3ISIP423_KUZMINA
 
                                     OrdersProduct newOrderaProduct = new OrdersProduct();
                                     Basket newOrdersProduct = bbasket.FirstOrDefault(b => b.ID_product ==  prod);
-                                    Console.WriteLine($"{newOrdersProduct.ID_product}, {newOrdersProduct.ID_orders}, {newOrdersProduct.ID_OrdersProduct}");
+                                    Console.WriteLine($"{newOrdersProduct.ID_product}, {newOrdersProduct.ID_user}, {newOrdersProduct.Count}");
                                     newOrderaProduct.ID_orders = newOrders.ID_orders;
-                                    newOrderaProduct.ID_product = newOrderaProduct.ID_product;
-                                    newOrderaProduct.Count = newOrderaProduct.Count;
+                                    newOrderaProduct.ID_product = newOrdersProduct.ID_product;
+                                    newOrderaProduct.Count = newOrdersProduct.Count;
                                     Core.Context.OrdersProduct.Add(newOrderaProduct);
                                     Core.Context.SaveChanges();
                                     Core.Context.Basket.Remove(newOrdersProduct);
