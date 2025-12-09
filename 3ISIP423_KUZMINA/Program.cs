@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data.SqlTypes;
 using System.Linq;
 using System.Security.Policy;
@@ -148,10 +149,33 @@ namespace _3ISIP423_KUZMINA
                                     {
                                         Console.WriteLine($"{ppointtt.ID_point}. {ppointtt.Adress}");
                                     }
+                                    Console.WriteLine("Напишите номер ПВЗ:");
+                                    int p = Convert.ToInt32(Console.ReadLine());
                                     break;
                                     case "2":
+                                    Console.WriteLine("Введите номер товара");
+                                    int prod = Convert.ToInt32(Console.ReadLine());
 
-                                        break;
+                                    Console.WriteLine("Выберете ПВЗ:");
+                                    List<Point> pppoint = Core.Context.Point.ToList();
+                                    foreach (var ppointtt in pppoint)
+                                    {
+                                        Console.WriteLine($"{ppointtt.ID_point}. {ppointtt.Adress}");
+                                    }
+                                    Console.WriteLine("Напишите номер ПВЗ:");
+                                    int pv = Convert.ToInt32(Console.ReadLine());
+
+                                    Orders newOrders = new Orders();
+                                    newOrders.ID_user = kupt.ID_user;
+                                    newOrders.ID_point = pv;
+                                    Core.Context.Orders.Add(newOrders);
+                                    Core.Context.SaveChanges();
+                                    OrdersProduct newOrderaProduct = new OrdersProduct();
+                                    var newOrdersProduct = bbasket.FirstOrDefault(b => b.ID_product ==  prod);
+                                    newOrderaProduct.ID_product = newOrderaProduct.ID_product;
+                                    newOrderaProduct.Count = newOrderaProduct.Count;
+
+                                    break;
                                 }
                         }
                         break;
