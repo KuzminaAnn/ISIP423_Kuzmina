@@ -24,9 +24,9 @@
         </EntityType>
         <EntityType Name="OrdersProduct">
           <Key>
-            <PropertyRef Name="ID_orders" />
-            <PropertyRef Name="ID_product" />
+            <PropertyRef Name="ID_OrdersProduct" />
           </Key>
+          <Property Name="ID_OrdersProduct" Type="int" Nullable="false" />
           <Property Name="ID_orders" Type="int" Nullable="false" />
           <Property Name="ID_product" Type="int" Nullable="false" />
           <Property Name="Count" Type="int" Nullable="false" />
@@ -198,9 +198,9 @@
         </EntityType>
         <EntityType Name="OrdersProduct">
           <Key>
-            <PropertyRef Name="ID_orders" />
-            <PropertyRef Name="ID_product" />
+            <PropertyRef Name="ID_OrdersProduct" />
           </Key>
+          <Property Name="ID_OrdersProduct" Type="Int32" Nullable="false" />
           <Property Name="ID_orders" Type="Int32" Nullable="false" />
           <Property Name="ID_product" Type="Int32" Nullable="false" />
           <Property Name="Count" Type="Int32" Nullable="false" />
@@ -378,6 +378,7 @@
           <EntitySetMapping Name="OrdersProduct">
             <EntityTypeMapping TypeName="marketModel.OrdersProduct">
               <MappingFragment StoreEntitySet="OrdersProduct">
+                <ScalarProperty Name="ID_OrdersProduct" ColumnName="ID_OrdersProduct" />
                 <ScalarProperty Name="ID_orders" ColumnName="ID_orders" />
                 <ScalarProperty Name="ID_product" ColumnName="ID_product" />
                 <ScalarProperty Name="Count" ColumnName="Count" />

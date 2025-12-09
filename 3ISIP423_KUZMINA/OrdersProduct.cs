@@ -14,6 +14,7 @@ namespace _3ISIP423_KUZMINA
     
     public partial class OrdersProduct
     {
+        public int ID_OrdersProduct { get; set; }
         public int ID_orders { get; set; }
         public int ID_product { get; set; }
         public int Count { get; set; }

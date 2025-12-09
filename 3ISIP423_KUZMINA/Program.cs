@@ -27,7 +27,8 @@ namespace _3ISIP423_KUZMINA
                 Console.WriteLine("Нажмите (1) для того чтобы войти/зарегистрироваться");
                 Console.WriteLine("Нажмите (2) для просмотра товаров");
                 Console.WriteLine("Нажмите (3) чтобы просмотра корзины");
-                Console.WriteLine("Нажмите (4) для выхода из магазина");
+                Console.WriteLine("Нажмите (4) чтобы просмотреть заказы");
+                Console.WriteLine("Нажмите (5) для выхода из магазина");
 
 
                 string a = Console.ReadLine();
@@ -145,13 +146,32 @@ namespace _3ISIP423_KUZMINA
                                     case "1":
                                     Console.WriteLine("Выберете ПВЗ:");
                                     List<Point> ppoint = Core.Context.Point.ToList();
+                                    List<Basket> baasket = Core.Context.Basket.ToList();
                                     foreach (var ppointtt in ppoint)
                                     {
                                         Console.WriteLine($"{ppointtt.ID_point}. {ppointtt.Adress}");
                                     }
                                     Console.WriteLine("Напишите номер ПВЗ:");
                                     int p = Convert.ToInt32(Console.ReadLine());
+                                    Orders newwOrders = new Orders();
+                                    newwOrders.ID_user = kupt.ID_user;
+                                    newwOrders.ID_point = p;
+                                    Core.Context.Orders.Add(newwOrders);
+                                    Core.Context.SaveChanges();
+                                    foreach (var baaskett in baasket)
+                                    {
+                                        OrdersProduct newwOrderaProduct = new OrdersProduct();
+                                        //var newwwOrderaProduct = bbasket.FirstOrDefault(b => b.ID_product == p);
+                                        newwOrderaProduct.ID_orders = newwOrders.ID_orders;
+                                        newwOrderaProduct.ID_product = baaskett.ID_product;
+                                        newwOrderaProduct.Count = baaskett.Count;
+                                        Core.Context.Basket.Remove(baaskett);
+                                        Core.Context.OrdersProduct.Add(newwOrderaProduct);
+                                        Core.Context.SaveChanges();
+                                    }
+                                    Console.WriteLine("Заказ оформлен! Следите за ним в вкладке заказы");
                                     break;
+
                                     case "2":
                                     Console.WriteLine("Введите номер товара");
                                     int prod = Convert.ToInt32(Console.ReadLine());
@@ -170,18 +190,33 @@ namespace _3ISIP423_KUZMINA
                                     newOrders.ID_point = pv;
                                     Core.Context.Orders.Add(newOrders);
                                     Core.Context.SaveChanges();
+
                                     OrdersProduct newOrderaProduct = new OrdersProduct();
-                                    var newOrdersProduct = bbasket.FirstOrDefault(b => b.ID_product ==  prod);
+                                    Basket newOrdersProduct = bbasket.FirstOrDefault(b => b.ID_product ==  prod);
+                                    Console.WriteLine($"{newOrdersProduct.ID_product}, {newOrdersProduct.ID_orders}, {newOrdersProduct.ID_OrdersProduct}");
+                                    newOrderaProduct.ID_orders = newOrders.ID_orders;
                                     newOrderaProduct.ID_product = newOrderaProduct.ID_product;
                                     newOrderaProduct.Count = newOrderaProduct.Count;
+                                    Core.Context.OrdersProduct.Add(newOrderaProduct);
+                                    Core.Context.SaveChanges();
+                                    Core.Context.Basket.Remove(newOrdersProduct);
+                                    Core.Context.SaveChanges();
 
+                                    Console.WriteLine("Заказ оформлен! Следите за ним в вкладке заказы");
                                     break;
                                 }
                         }
                         break;
 
-
                     case "4":
+                        List<OrdersProduct> oorders = Core.Context.OrdersProduct.ToList();
+                        foreach (var oorderss in oorders)
+                        {
+                            Console.WriteLine($"{oorderss.ID_orders}.{oorderss.Product.Name} - {oorderss.Count} ({oorderss.Orders.Point.Adress})");
+                        }
+                        break;
+
+                    case "5":
                         Console.WriteLine("Заходите ещё! Нагиев ждёт вас!!");
                         br = br - 1;
                         break;
