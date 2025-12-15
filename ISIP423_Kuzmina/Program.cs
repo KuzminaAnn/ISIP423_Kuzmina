@@ -110,6 +110,17 @@ namespace TextRPG
         public override void ApplySpecialEffect(Player player) { }
     }
 
+    public class Slime : Enemy
+    {
+        public Slime() : base("Слизень", 35, 6, 5) { }
+
+        public override int CalculateDamage(Player player)
+        {
+            return Attack;
+        }
+        public override void ApplySpecialEffect(Player player) { }
+    }
+
     public class Mage : Enemy
     {
         private double freezeChance = 0.25;
