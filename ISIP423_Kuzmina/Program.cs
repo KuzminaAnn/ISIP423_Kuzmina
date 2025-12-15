@@ -1,86 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using ISIP423_Kuzmina.Model;
 
 namespace TextRPG
 {
-    public abstract class Item
-    {
-        public string Name { get; protected set; }
-        protected Item(string name)
-        {
-            Name = name;
-        }
-    }
 
-    public class Weapon : Item
-    {
-        public int Attack { get; private set; }
-        public Weapon(string name, int attack) : base(name)
-        {
-            Attack = attack;
-        }
-        public override string ToString()
-        {
-            return $"{Name} (Атака: {Attack})";
-        }
-    }
-
-    public class Armor : Item
-    {
-        public int Defense { get; private set; }
-
-        public Armor(string name, int defense) : base(name)
-        {
-            Defense = defense;
-        }
-        public override string ToString()
-        {
-            return $"{Name} (Защита: {Defense})";
-        }
-    }
-    public class HealthPotion : Item
-    {
-        public HealthPotion() : base("Лечебное зелье") { }
-        public override string ToString()
-        {
-            return $"{Name} (Восстанавливает всё здоровье)";
-        }
-    }
+    
 
     public abstract class Enemy
     {
-        public string Name { get; protected set; }
-        public int MaxHP { get; protected set; }
-        public int CurrentHP { get; protected set; }
-        public int Attack { get; protected set; }
-        public int Defense { get; protected set; }
-        public bool IsFrozen { get; set; }
+        //public string Name { get; protected set; }
+        //public int MaxHP { get; protected set; }
+        //public int CurrentHP { get; protected set; }
+        //public int Attack { get; protected set; }
+        //public int Defense { get; protected set; }
+        //public bool IsFrozen { get; set; }
 
-        protected Random random;
+        //protected Random random;
 
-        protected Enemy(string name, int hp, int attack, int defense)
-        {
-            Name = name;
-            MaxHP = hp;
-            CurrentHP = hp;
-            Attack = attack;
-            Defense = defense;
-            random = new Random();
-            IsFrozen = false;
-        }
-        public virtual void TakeDamage(int damage)
-        {
-            CurrentHP -= damage;
-            if (CurrentHP < 0) CurrentHP = 0;
-        }
-        public abstract int CalculateDamage(Player player);
-        public abstract void ApplySpecialEffect(Player player);
-        public bool IsAlive => CurrentHP > 0;
-        public virtual string GetStatus()
-        {
-            return $"{Name} - HP: {CurrentHP}/{MaxHP}, Атака: {Attack}, Защита: {Defense}";
-        }
+        //protected Enemy(string name, int hp, int attack, int defense)
+        //{
+        //    Name = name;
+        //    MaxHP = hp;
+        //    CurrentHP = hp;
+        //    Attack = attack;
+        //    Defense = defense;
+        //    random = new Random();
+        //    IsFrozen = false;
+        //}
+        //public virtual void TakeDamage(int damage)
+        //{
+        //    CurrentHP -= damage;
+        //    if (CurrentHP < 0) CurrentHP = 0;
+        //}
+        //public abstract int CalculateDamage(Player player);
+        //public abstract void ApplySpecialEffect(Player player);
+        //public bool IsAlive => CurrentHP > 0;
+        //public virtual string GetStatus()
+        //{
+        //    return $"{Name} - HP: {CurrentHP}/{MaxHP}, Атака: {Attack}, Защита: {Defense}";
+        //}
     }
     public class Goblin : Enemy
     {
@@ -119,6 +79,16 @@ namespace TextRPG
             return Attack;
         }
         public override void ApplySpecialEffect(Player player) { }
+
+        public override void TakeDamage(int damage)
+        {
+            int reducedDamage = Math.Max(1, damage - 2);
+            if (damage != reducedDamage)
+            {
+                Console.WriteLine("Слизень поглощает часть урона! Урон уменьшен на 2.");
+            }
+            base.TakeDamage(reducedDamage);
+        }
     }
 
     public class Mage : Enemy
@@ -310,7 +280,8 @@ namespace TextRPG
             {
                 () => new Goblin(),
                 () => new Skeleton(),
-                () => new Mage()
+                () => new Mage(),
+                () => new Slime()
             };
 
             bosses = new List<Func<Enemy>>
@@ -395,8 +366,16 @@ namespace TextRPG
                 if (choice == "1")
                 {
                     int playerDamage = player.CalculateAttack();
-                    enemy.TakeDamage(playerDamage);
-                    Console.WriteLine($"Вы нанесли {playerDamage} урона!");
+                    if (enemy is Slime)
+                    {
+                        Console.WriteLine($"Вы наносите {playerDamage - 2} урона!");
+                        enemy.TakeDamage(playerDamage);
+                    }
+                    else
+                    {
+                        enemy.TakeDamage(playerDamage);
+                        Console.WriteLine($"Вы нанесли {playerDamage} урона!");
+                    }
                     player.SetDefending(false);
                 }
                 else if (choice == "2")
