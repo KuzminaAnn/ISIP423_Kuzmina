@@ -18,7 +18,7 @@ namespace ISIP423_Kuzmina.Model
         }
         public override void ApplySpecialEffect(Player player)
         {
-            if (random.NextDouble() < freezeChance)
+            if (RandomChoice.FreezChoiceM())
             {
                 player.IsFrozen = true;
                 Console.WriteLine("Маг заморозил вас! Вы пропустите следующий ход.");

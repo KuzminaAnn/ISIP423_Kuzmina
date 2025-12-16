@@ -30,7 +30,7 @@ namespace ISIP423_Kuzmina.Model
             {
                 if (IsDefending)
                 {
-                    if (random.NextDouble() < 0.4)
+                    if (RandomChoice.SitChoice())
                     {
                         Console.WriteLine("Вы увернулись от атаки!");
                         IsDefending = false;

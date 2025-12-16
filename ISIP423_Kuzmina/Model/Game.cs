@@ -56,7 +56,7 @@ namespace ISIP423_Kuzmina.Model
                     continue;
                 }
 
-                if (random.NextDouble() < 0.5)
+                if (RandomChoice.MainChoice())
                 {
                     EncounterEnemy();
                 }
@@ -166,9 +166,7 @@ namespace ISIP423_Kuzmina.Model
         {
             Console.WriteLine("\nВы нашли сундук!");
 
-            double itemType = random.NextDouble();
-
-            if (itemType < 0.33)
+            if (RandomChoice.DrinrChoice())
             {
                 HealthPotion potion = new HealthPotion();
                 Console.WriteLine($"В сундуке: {potion}");
@@ -179,7 +177,7 @@ namespace ISIP423_Kuzmina.Model
                     player.Heal();
                 }
             }
-            else if (itemType < 0.66)
+            else if (RandomChoice.ArmChoice())
             {
                 string[] weaponNames = { "Меч", "Топор", "Посох", "Кинжал", "Булава" };
                 string name = weaponNames[random.Next(weaponNames.Length)];

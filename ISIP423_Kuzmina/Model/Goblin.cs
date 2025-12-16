@@ -15,7 +15,7 @@ namespace ISIP423_Kuzmina.Model
         public override int CalculateDamage(Player player)
         {
             int damage = Attack;
-            if (random.NextDouble() < critChance)
+            if (RandomChoice.KritChoice())
             {
                 damage = (int)(damage * 1.5);
                 Console.WriteLine("Критический урон!");

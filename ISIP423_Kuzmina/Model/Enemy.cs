@@ -7,7 +7,7 @@ using TextRPG;
 
 namespace ISIP423_Kuzmina.Model
 {
-    internal class Enemy
+    internal abstract class Enemy
     {
         public string Name { get; protected set; }
         public int MaxHP { get; protected set; }

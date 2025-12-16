@@ -19,7 +19,7 @@ namespace ISIP423_Kuzmina.Model
         }
         public override void ApplySpecialEffect(Player player)
         {
-            if (random.NextDouble() < 0.35)
+            if (RandomChoice.FreezChoiceA())
             {
                 player.IsFrozen = true;
                 Console.WriteLine("Архимаг C++ заморозил вас! Вы пропустите следующий ход.");
